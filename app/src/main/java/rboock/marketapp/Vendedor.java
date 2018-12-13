@@ -1,16 +1,70 @@
 package rboock.marketapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rboock.marketapp.modelo.Producto;
 
 public class Vendedor extends AppCompatActivity {
+    private List<Producto> productos = new ArrayList<>();
+    ArrayAdapter<Producto> adapterProductos;
+    ListView lvProductos;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendedor);
+
+        lvProductos = findViewById(R.id.lvProductos);
+
+        iniciarFirebase();
+        listarProductos();
+
+    }
+    private void iniciarFirebase() {
+        FirebaseApp.initializeApp(this);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+    }
+
+
+    private void listarProductos() {
+        myRef.child("Producto").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                productos.clear();
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Producto p = objSnapshot.getValue(Producto.class);
+                    productos.add(p);
+
+                    adapterProductos = new ArrayAdapter<>(Vendedor.this,android.R.layout.simple_list_item_1,productos);
+                    lvProductos.setAdapter(adapterProductos);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void onClickPublicar(View v){

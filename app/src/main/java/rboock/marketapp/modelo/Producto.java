@@ -88,4 +88,9 @@ public class Producto {
     public void setUso(String uso) {
         this.uso = uso;
     }
+
+    @Override
+    public String toString() {
+        return nombre+" $"+precio;
+    }
 }
