@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "929048503334",
+    "firebase_url": "https://marketapp-b5a90.firebaseio.com",
+    "project_id": "marketapp-b5a90",
+    "storage_bucket": "marketapp-b5a90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929048503334:android:357824b62030c9c8",
+        "android_client_info": {
+          "package_name": "rboock.marketapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929048503334-jrp8k8kfoi5ubn8fi73qu2fj8mq5dhp9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "rboock.marketapp",
+            "certificate_hash": "673ffacc590ac0aa3893ea07c361ff7bbae96fb3"
+          }
+        },
+        {
+          "client_id": "929048503334-g85ls6dkuvslvirhoidjpaqr72c19k4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQcZ2qJ1ffXwr6YIFZ__JKaFn4TfbN7gY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929048503334-g85ls6dkuvslvirhoidjpaqr72c19k4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
