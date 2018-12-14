@@ -1,11 +1,11 @@
 package rboock.marketapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -27,6 +27,7 @@ public class Vendedor extends AppCompatActivity {
     ListView lvProductos;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,14 @@ public class Vendedor extends AppCompatActivity {
 
         lvProductos = findViewById(R.id.lvProductos);
 
+        SharedPreferences prefs = getSharedPreferences("shPref", MODE_PRIVATE);
+        usuario = prefs.getString("usuario", null);
+
         iniciarFirebase();
         listarProductos();
 
     }
+
     private void iniciarFirebase() {
         FirebaseApp.initializeApp(this);
         database = FirebaseDatabase.getInstance();
@@ -47,7 +52,7 @@ public class Vendedor extends AppCompatActivity {
 
 
     private void listarProductos() {
-        myRef.child("Producto").addValueEventListener(new ValueEventListener() {
+        myRef.child("Producto").child(usuario).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productos.clear();
@@ -69,6 +74,11 @@ public class Vendedor extends AppCompatActivity {
 
     public void onClickPublicar(View v){
         Intent i = new Intent(this,PublicarProducto.class);
+        startActivity(i);
+    }
+
+    public void compradorOnClick(View v){
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }

@@ -1,6 +1,7 @@
 package rboock.marketapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ public class PublicarProducto extends AppCompatActivity {
 
     Spinner categorias;
     EditText edtNombre,edtPrecio,edtDescripcion;
+    String usuario;
     // Write a message to the database
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -34,6 +36,9 @@ public class PublicarProducto extends AppCompatActivity {
         edtPrecio = findViewById(R.id.edtPrecio);
         edtDescripcion = findViewById(R.id.edtDescripcion);
         categorias = findViewById(R.id.categorias);
+
+        SharedPreferences prefs = getSharedPreferences("shPref", MODE_PRIVATE);
+        usuario = prefs.getString("usuario", null);
 
         iniciarFirebase();
 
@@ -49,12 +54,13 @@ public class PublicarProducto extends AppCompatActivity {
     public void onClickPublicar(View v){
         if (validar()){
             Producto p = new Producto();
+            p.setVendedor(usuario);
             p.setId(UUID.randomUUID().toString());
             p.setNombre(edtNombre.getText().toString());
             p.setPrecio(edtPrecio.getText().toString());
             p.setDescripcion(edtDescripcion.getText().toString());
             p.setCategoria(categorias.getSelectedItem().toString());
-            myRef.child("Producto").child(p.getId()).setValue(p);
+            myRef.child("Producto").child(usuario).child(p.getId()).setValue(p);
             Toast.makeText(this,"¡Producto publicado!",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this,Publicado.class);
             startActivity(i);

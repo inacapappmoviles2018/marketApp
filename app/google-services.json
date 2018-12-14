@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "929048503334-fln3gs57sf4viivs7mr4b4hr3rnsi1h3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "rboock.marketapp",
+            "certificate_hash": "498f7e0cf400b004161464737a3c7f6d03c2cd8e"
+          }
+        },
+        {
           "client_id": "929048503334-g85ls6dkuvslvirhoidjpaqr72c19k4e.apps.googleusercontent.com",
           "client_type": 3
         }

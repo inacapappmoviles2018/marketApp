@@ -1,9 +1,10 @@
 package rboock.marketapp.modelo;
 
 public class Producto {
-    private String id,nombre,precio,direccion,descripcion,tiempoDuracion,categoria,uso;
+    private String vendedor,id,nombre,precio,direccion,descripcion,tiempoDuracion,categoria,uso;
 
-    public Producto(String id,String nombre, String precio, String direccion, String descripcion, String tiempoDuracion, String categoria, String uso) {
+    public Producto(String vendedor,String id, String nombre, String precio, String direccion, String descripcion, String tiempoDuracion, String categoria, String uso) {
+        this.vendedor = vendedor;
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -14,7 +15,8 @@ public class Producto {
         this.uso = uso;
     }
 
-    public Producto(String id, String nombre, String precio, String descripcion, String categoria) {
+    public Producto(String vendedor, String id, String nombre, String precio, String descripcion, String categoria) {
+        this.vendedor = vendedor;
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -23,6 +25,14 @@ public class Producto {
     }
 
     public Producto() {
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
     }
 
     public String getId() {
@@ -91,6 +101,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return nombre+" $"+precio;
+        return nombre+" $"+precio+" "+vendedor;
     }
 }

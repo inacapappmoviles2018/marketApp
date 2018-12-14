@@ -1,6 +1,8 @@
 package rboock.marketapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ public class login extends AppCompatActivity {
     private List<Usuario> usuarios = new ArrayList<>();
     FirebaseDatabase database;
     DatabaseReference myRef;
+    public static final String shPref = "shPref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,12 @@ public class login extends AppCompatActivity {
         edLoginUsuario = (EditText) findViewById(R.id.edUsuario);
         edLoginPass = (EditText) findViewById(R.id.edPass);
         tview = (TextView) findViewById(R.id.tview);
+        SharedPreferences prefs = getSharedPreferences("shPref", MODE_PRIVATE);
+        String usuario = prefs.getString("usuario", null);
+        if (usuario!=null){
+            Intent i = new Intent(this,MainActivity.class);
+            startActivity(i);
+        }
 
         iniciarFirebase();
     }
@@ -75,9 +84,11 @@ public class login extends AppCompatActivity {
     public void ingreso(View view) {
 
         if (validar()&&validarCredenciales()) {
+            SharedPreferences.Editor editor = getSharedPreferences(shPref, MODE_PRIVATE).edit();
+            editor.putString("usuario", edLoginUsuario.getText().toString());
+            editor.apply();
             Toast.makeText(this, "Ha ingresado correctamente", Toast.LENGTH_SHORT).show();
             Intent main = new Intent(this, MainActivity.class);
-            main.putExtra("usuario", edLoginUsuario.getText().toString());
             startActivity(main);
         }else if(validar()){
             Toast.makeText(this,"Usuario y/o contraseña incorrectos, RECUERDA RESPETAR LAS MAYÚSCULAS",Toast.LENGTH_SHORT).show();
