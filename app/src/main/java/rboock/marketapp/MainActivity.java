@@ -4,20 +4,28 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    EditText edtNombre;
-    EditText edtPass;
+    TextView Bienvenido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        edtNombre = (EditText) findViewById(R.id.edtNombre);
-        edtPass = (EditText) findViewById(R.id.edtPass);
+        String dato = getIntent().getStringExtra("dato");
+
+        if(dato.equals(null)){     // despues validare si a iniciado sesion antes y si lo ha hecho debera guardarlo
+            Intent i = new Intent(this,login.class);
+            startActivity(i);
+        }
+
+        Bienvenido = (TextView) findViewById(R.id.Bienvenido);
+        Bienvenido.setText("Bienvenido, " + dato);
+
     }
 
-    public void Ingresar(View view){
-        
+    public void onClickVendedor(View v){
+        Intent i = new Intent(this,Vendedor.class);
+        startActivity(i);
     }
 }
